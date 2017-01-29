@@ -1,0 +1,7 @@
+1  模仿Spring事务来练习AOP编程。
+       leader.trans目录下的所有以Service结尾的类中：
+             如果方法名是query开头的，则只自动开启JDBC连接，而不开启事务，
+             如果方法名是save/update/create/delete开头的，则同时开启事务，
+   具体细节如下：
+         则进入被Advise的方法前，先打开一个JDBC连接，并放入到线程上下文中，方法结束后，则关闭连接，如果有事务，则提交事务，
+         如果业务方法抛出runtime exception，则触发事务的回滚，其他异常则继续提交事务。
