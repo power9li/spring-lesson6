@@ -26,6 +26,7 @@ public class TransAspect {
     public void traceBusiness(JoinPoint joinPoint) {
         System.out.println("joinPoint: [\n\ttype = " + joinPoint.getKind()
                 + ", \n\tdeclaringTypeName = " + joinPoint.getSignature().getDeclaringTypeName()
+                + ", \n\tthis = " + joinPoint.getThis()
                 + ", \n\ttarget = " + joinPoint.getTarget()
                 + ", \n\tmethod = " + joinPoint.getSignature().getName()
                 + ", \n\targs = " + Arrays.toString(joinPoint.getArgs()) + "\n]");
@@ -43,6 +44,7 @@ public class TransAspect {
             conn = getConn();
             System.out.println("[" + Thread.currentThread().getName()
                     + "] method="+pjp.getSignature().getName()+",conn=" + conn);
+            System.out.println("conn.setAutoCommit(false);");
             conn.setAutoCommit(false);
             rst = pjp.proceed();
             conn.commit();
@@ -72,7 +74,9 @@ public class TransAspect {
             System.out.println("[" + Thread.currentThread().getName() +
                     "] method="+pjp.getSignature().getName()
                     +",conn=" + conn);
+            System.out.println("conn.setReadOnly(true);");
             conn.setReadOnly(true);
+            System.out.println("conn.setAutoCommit(true);");
             conn.setAutoCommit(true);
             rst = pjp.proceed();
         } catch (Throwable throwable) {
@@ -84,7 +88,7 @@ public class TransAspect {
     }
 
     private Connection getConn(){
-        Connection conn = ThreadLocalConn.getConn();
+        Connection conn = ThreadLocalConn.peekConn();
         try {
             if(conn == null || conn.isClosed() ) {
                 try {
@@ -92,7 +96,7 @@ public class TransAspect {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                ThreadLocalConn.setConn(conn);
+                ThreadLocalConn.pushConn(conn);
             }
         } catch (SQLException e) {
             e.printStackTrace();

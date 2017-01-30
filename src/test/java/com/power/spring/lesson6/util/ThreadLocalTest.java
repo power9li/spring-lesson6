@@ -31,10 +31,10 @@ public class ThreadLocalTest {
             public void run() {
                 try {
                     for(int i=0; i< 10; i++) {
-                        connection = ThreadLocalConn.getConn();
+                        connection = ThreadLocalConn.popConn();
                         if (connection == null) {
                             connection = ds.getConnection();
-                            ThreadLocalConn.setConn(connection);
+                            ThreadLocalConn.pushConn(connection);
                         }
                         System.out.println("Thread1.connection = " + connection);
                         Thread.sleep(1000);
@@ -52,10 +52,10 @@ public class ThreadLocalTest {
             public void run() {
                 try {
                     for(int i=0; i< 10; i++) {
-                        connection = ThreadLocalConn.getConn();
+                        connection = ThreadLocalConn.popConn();
                         if (connection == null) {
                             connection = ds.getConnection();
-                            ThreadLocalConn.setConn(connection);
+                            ThreadLocalConn.pushConn(connection);
                         }
                         System.out.println("Thread2.connection = " + connection);
                         Thread.sleep(1000);

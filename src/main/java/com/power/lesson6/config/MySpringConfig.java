@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("com.power.lesson6")
 @PropertySource("classpath:prod.properties")
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(exposeProxy = true)
 @Configurable
 public class MySpringConfig {
 
@@ -56,10 +56,8 @@ public class MySpringConfig {
 
     @Bean
     @Autowired
-    public PlatformTransactionManager transactionManager(DataSource dataSource)
-    {
-        PlatformTransactionManager transMan = new DataSourceTransactionManager(dataSource);
-        return transMan;
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean

@@ -25,7 +25,7 @@ public class OrderService {
 
     public boolean updateOrder(Order order) throws FileNotFoundException {
         int num = orderDao.updateOrder(order);
-        runtime();
+//        runtime();
 //        noRuntime();
         return num > 0;
     }

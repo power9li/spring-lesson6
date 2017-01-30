@@ -43,4 +43,8 @@ public class UserDao {
         List<User> users = jdbcTemplate.query("select * from users", new UserRowMapper());
         return users;
     }
+
+    public User findByName(String name) {
+        return jdbcTemplate.queryForObject("select * from users where name = '" + name + "'", new UserRowMapper());
+    }
 }

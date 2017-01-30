@@ -3,7 +3,7 @@ package com.power.lesson6.bean;
 /**
  * Created by shenli on 2017/1/26.
  */
-public class Organize {
+public class Organize{
 
     private Long id;
     private String name;

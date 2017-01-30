@@ -3,7 +3,7 @@ package com.power.lesson6.bean;
 /**
  * Created by shenli on 2017/1/26.
  */
-public class Order {
+public class Order{
 
     private Long id;
     private double price;

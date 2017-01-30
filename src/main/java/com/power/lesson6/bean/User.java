@@ -3,10 +3,11 @@ package com.power.lesson6.bean;
 /**
  * Created by shenli on 2017/1/26.
  */
-public class User {
+public class User{
 
     private String name;
     private String pass;
+
     private Integer age;
     private Long id;
 

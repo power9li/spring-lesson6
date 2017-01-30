@@ -67,6 +67,7 @@ public class lesson6_1 {
 
     @Test
     public void testOrderService() throws FileNotFoundException {
+        System.out.println("orderService = " + orderService);
         List<Order> orders = orderService.findAll();
         System.out.println("orders = " + orders);
         if (orders != null && !orders.isEmpty()) {
@@ -75,6 +76,11 @@ public class lesson6_1 {
             boolean updated = orderService.updateOrder(order);
             System.out.println("updated = " + updated);
         }
+    }
+
+    @Test
+    public void testFindAndUpdate() {
+        userService.find2();
     }
 
 
